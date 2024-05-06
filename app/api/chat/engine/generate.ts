@@ -19,7 +19,7 @@ async function loadAndIndex() {
   const vectorStore = new PineconeVectorStore(
     {
       'indexName': 'chatbot',
-      'namespace':'llama-new'
+      'namespace':'llama-new-2'
     }
   );
 

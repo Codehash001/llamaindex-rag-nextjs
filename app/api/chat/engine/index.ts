@@ -6,7 +6,7 @@ export async function getDataSource() {
   checkRequiredEnvVars();
   const store = new PineconeVectorStore(
     {'indexName': 'chatbot',
-      'namespace':'llama-new'}
+      'namespace':'llama-new-2'}
   );
   return await VectorStoreIndex.fromVectorStore(store);
 }
