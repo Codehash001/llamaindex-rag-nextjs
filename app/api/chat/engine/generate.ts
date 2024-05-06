@@ -16,7 +16,9 @@ async function loadAndIndex() {
   const documents = await getDocuments();
 
   // create vector store
-  const vectorStore = new PineconeVectorStore();
+  const vectorStore = new PineconeVectorStore(
+    {'indexName': process.env.PINECONE_INDEX_NAME}
+  );
 
   // create index from all the Documentss and store them in Pinecone
   console.log("Start creating embeddings...");

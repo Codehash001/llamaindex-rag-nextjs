@@ -1,33 +1,42 @@
+import * as dotenv from "dotenv";
+import {
+    storageContextFromDefaults,
+  } from "llamaindex/storage/StorageContext";
+import {VectorStoreIndex} from "llamaindex"
+import {PineconeVectorStore } from "llamaindex/storage/vectorStore/PineconeVectorStore";
+import { getDocuments } from "../chat/engine/loader";
+import { initSettings } from "../chat/engine/settings";
+import { checkRequiredEnvVars } from "../chat/engine/shared";
 import { NextRequest, NextResponse } from 'next/server';
-import { exec } from "child_process";
+
+dotenv.config();
+
+async function loadAndIndex() {
+  // load objects from storage and convert them into LlamaIndex Document objects
+  const documents = await getDocuments();
+
+  // create vector store
+  const vectorStore = new PineconeVectorStore();
+
+  // create index from all the Documents and store them in Pinecone
+  console.log("Start creating embeddings...");
+  const storageContext = await storageContextFromDefaults({ vectorStore });
+  await VectorStoreIndex.fromDocuments(documents, { storageContext });
+  console.log("Successfully created embeddings and saved to your Pinecone index.");
+}
 
 export async function POST(request: NextRequest) {
-    try {
-        // Wrap exec in a Promise
-        const executeCommand = () => {
-            return new Promise<void>((resolve, reject) => {
-                exec('npm run generate', (error, stdout, stderr) => {
-                    if (error) {
-                        console.error(`Error: ${error.message}`);
-                        reject(error);
-                    } else if (stderr) {
-                        console.error(`stderr: ${stderr}`);
-                        reject(new Error(stderr));
-                    } else {
-                        console.log(`stdout: ${stdout}`);
-                        resolve();
-                    }
-                });
-            });
-        };
+  try {
+    // Check if the request contains necessary authentication or any other validations
 
-        // Execute the command
-        await executeCommand();
-
-        // Return response after command execution completes
-        return NextResponse.json({ success: true, message: "Command executed successfully." });
-    } catch (err) {
-        console.error('Error:', err);
-        return NextResponse.json({ success: false, message: "Error generating storage." });
-    }
+    // Execute the script
+    checkRequiredEnvVars();
+    initSettings();
+    await loadAndIndex();
+    
+    return NextResponse.json({ success: true, message: "Storage generation complete." });
+  } catch (error) {
+    console.error("Error generating storage:", error);
+    return NextResponse.json({ success: false, message: "Error generating storage." });
+  }
 }
