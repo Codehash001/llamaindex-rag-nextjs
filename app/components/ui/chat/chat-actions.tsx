@@ -18,7 +18,7 @@ export default function ChatActions(
         </Button>
       )}
       {props.showReload && (
-        <Button variant="outline" size="sm" onClick={props.reload}>
+        <Button size="sm" variant="outline" onClick={props.reload}>
           <RefreshCw className="mr-2 h-4 w-4" />
           Regenerate
         </Button>

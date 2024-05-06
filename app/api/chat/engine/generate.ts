@@ -33,3 +33,4 @@ async function loadAndIndex() {
   await loadAndIndex();
   console.log("Finished generating storage.");
 })();
+

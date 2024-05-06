@@ -2,8 +2,10 @@
 
 import { useChat } from "ai/react";
 import { ChatInput, ChatMessages } from "./ui/chat";
+import { initialMessages } from "./ui/chat/chat-message";
 
 export default function ChatSection() {
+
   const {
     messages,
     input,
@@ -13,6 +15,7 @@ export default function ChatSection() {
     reload,
     stop,
   } = useChat({
+    initialMessages,
     api: process.env.NEXT_PUBLIC_CHAT_API,
     headers: {
       "Content-Type": "application/json", // using JSON because of vercel/ai 2.2.26
@@ -24,7 +27,7 @@ export default function ChatSection() {
   });
 
   return (
-    <div className="space-y-4 max-w-5xl w-full">
+    <div className="space-y-4 max-w-5xl w-full flex flex-col justify-evenly h-full">
       <ChatMessages
         messages={messages}
         isLoading={isLoading}

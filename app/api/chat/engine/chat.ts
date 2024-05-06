@@ -1,8 +1,12 @@
 import { ContextChatEngine, Settings } from "llamaindex";
-import { getDataSource } from "./index";
+import {PineconeVectorStore } from "llamaindex/storage/vectorStore/PineconeVectorStore";
+import {VectorStoreIndex} from "llamaindex"
+import { checkRequiredEnvVars } from "./shared";
 
 export async function createChatEngine() {
-  const index = await getDataSource();
+  checkRequiredEnvVars();
+  const store = new PineconeVectorStore();
+  const index =  await VectorStoreIndex.fromVectorStore(store);
   if (!index) {
     throw new Error(
       `StorageContext is empty - call 'npm run generate' to generate the storage first`,

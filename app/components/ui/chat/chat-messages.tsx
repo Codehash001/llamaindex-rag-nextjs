@@ -20,7 +20,7 @@ export default function ChatMessages(
   };
 
   const isLastMessageFromAssistant =
-    messageLength > 0 && lastMessage?.role !== "user";
+    messageLength > 1 && lastMessage?.role !== "user";
   const showReload =
     props.reload && !props.isLoading && isLastMessageFromAssistant;
   const showStop = props.stop && props.isLoading;
@@ -35,9 +35,9 @@ export default function ChatMessages(
   }, [messageLength, lastMessage]);
 
   return (
-    <div className="w-full rounded-xl bg-white p-4 shadow-xl pb-0">
+    <div className="w-full rounded-xl bg-slate-100 p-4 shadow-xl pb-0 h-auto">
       <div
-        className="flex h-[50vh] flex-col gap-5 divide-y overflow-y-auto pb-4"
+        className="flex h-[50vh] flex-grow flex-col gap-5 divide-y overflow-y-auto pb-4"
         ref={scrollableChatContainerRef}
       >
         {props.messages.map((m) => (

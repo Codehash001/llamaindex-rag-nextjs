@@ -1,6 +1,6 @@
 "use client";
 
-import { Loader2, Paperclip } from "lucide-react";
+import { Loader2, ImagePlus } from "lucide-react";
 import { ChangeEvent, useState } from "react";
 import { buttonVariants } from "./button";
 import { cn } from "./lib/utils";
@@ -97,7 +97,7 @@ export default function FileUploader({
         {uploading ? (
           <Loader2 className="h-4 w-4 animate-spin" />
         ) : (
-          <Paperclip className="-rotate-45 w-4 h-4" />
+          <ImagePlus className="w-5 h-5" />
         )}
       </label>
     </div>

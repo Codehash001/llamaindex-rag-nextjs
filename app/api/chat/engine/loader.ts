@@ -1,4 +1,4 @@
-import { SimpleDirectoryReader } from "llamaindex";
+import { SimpleDirectoryReader } from "llamaindex/readers/SimpleDirectoryReader";
 
 export const DATA_DIR = "./data";
 

@@ -92,3 +92,24 @@
       radial-gradient(at 8% 40%, rgba(251, 218, 239, 0.46) 0, transparent 50%);
   }
 }
+
+
+/* Customize the scrollbar */
+::-webkit-scrollbar {
+  width: 5px; /* Width of the scrollbar */
+  margin-left: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Color of the track */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #000000; /* Color of the scroll thumb */
+  border-radius: 4px; /* Rounded corners of the scroll thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #000000; /* Color of the scroll thumb on hover */
+}
+

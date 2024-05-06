@@ -99,7 +99,7 @@ export default function ChatMessage({
       <ChatAvatar role={chatMessage.role} />
       <div className="group flex flex-1 justify-between gap-2">
         <ChatMessageContent message={chatMessage} isLoading={isLoading} />
-        <Button
+        {chatMessage.id != '0' && chatMessage.role == 'assistant' ?<Button
           onClick={() => copyToClipboard(chatMessage.content)}
           size="icon"
           variant="ghost"
@@ -111,7 +111,19 @@ export default function ChatMessage({
             <Copy className="h-4 w-4" />
           )}
         </Button>
+        :<></>
+}
       </div>
     </div>
   );
 }
+
+// Default UI Message
+export const initialMessages: Message[] = [
+  {
+    role: "assistant",
+    id: "0",
+    content:
+      "Ask me anything about custom knowledgebase",
+  },
+];
