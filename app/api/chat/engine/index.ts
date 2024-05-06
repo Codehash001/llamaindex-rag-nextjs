@@ -4,9 +4,6 @@ import { checkRequiredEnvVars } from "./shared";
 
 export async function getDataSource() {
   checkRequiredEnvVars();
-  const store = new PineconeVectorStore(
-    {'indexName': 'chatbot',
-      'namespace':'llama-new-2'}
-  );
+  const store = new PineconeVectorStore();
   return await VectorStoreIndex.fromVectorStore(store);
 }
